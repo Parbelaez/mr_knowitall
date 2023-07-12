@@ -87,6 +87,20 @@ def create_players():
             print(f'Invalid data: {e}, please try again.\n')
     return players
 
+def get_question(dices,category):
+    category_sheet = SHEET.worksheet(category)
+    # trunk-ignore(bandit/B311)
+    question = category_sheet.row_values(random.randint(2,11))
+    print(f'{question[0]}\n\n',
+          'Your answer options are:\n\n',
+          f'A: {question[1]}\n',
+          f'B: {question[2]}\n',
+          f'C: {question[3]}\n',
+          f'D: {question[4]}\n',)
+
+def start_timer():
+    print('You have 10 seconds to answer')
+
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
     print("Welcome to the Mr. Know-it-all game!\n",
@@ -102,6 +116,7 @@ def main():
           "\t5. Sports\n",
           "\t6. Math (for which you will have 10s)\n\n",
           "- If your answer is correct, you will get the points from dice 2.\n",
+          "- If your answer a math question correctly in less than 5 seconds, you will get double the points.\n",
           "- The game is won when any of the players reaches 100 points.\n\n")
 
     players = create_players()
@@ -113,7 +128,10 @@ def main():
             while  y_key != "y":
                 y_key = input('Press "y" to throw the dices: ')
             dices = throw_dices()
+            print("\033c")
             print(f'Dice 1: {dices[0]} , Dice 2: {dices[1]}')
-            print(f'Category: {category[dices[0]-1]} and you will be able to get {dices[1]} points')
+            print(f'Category: {category[dices[0]-1]} and you will be able to get {dices[1]} points.\n')
+            get_question(dices,category[dices[0]-1])
+            start_timer()
 
 main()
