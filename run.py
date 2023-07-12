@@ -1,5 +1,6 @@
 import random
 import gspread
+from time import sleep
 from google.oauth2.service_account import Credentials
 
 
@@ -14,7 +15,19 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('mr_knowitall')
 
+
+
 def throw_dices():
+    """
+    Create a pseudo-random number between 1 and 6
+    to emulate the rolling of dices.
+    """
+    loading = "|/-\\"
+    i = 0
+    for i in range(100):
+        print(loading[i % len(loading)], end="\r")
+        sleep(0.01)
+        i += 1
     dice_1 = random.randint(1,6)
     dice_2 = random.randint(1,6)
     return [dice_1, dice_2]
@@ -22,13 +35,22 @@ def throw_dices():
 def create_players():
     players = []
     num_of_players = 0
-    while int(num_of_players) < 1 or int(num_of_players) > 4:
+    valid_data = False
+    
+    while valid_data is False:
         num_of_players = input("Please,enter the number of players (1 to 4): ")
-        if int(num_of_players) < 1 or int(num_of_players) > 4:
-            print("Please, enter a number between 1 and 4")
-        else:
-            for player_n in range(0, int(num_of_players)):
-                players.append(input(f'Please, enter the name of player {player_n+1}: '))
+        try:
+            int(num_of_players)
+            if int(num_of_players) < 1 or int(num_of_players) > 4:
+                raise ValueError(
+                    f'Please, enter a number between 1 and 4. You privided {num_of_players}'
+                    )
+            else:
+                for player_n in range(0, int(num_of_players)):
+                    players.append(input(f'Please, enter the name of player {player_n+1}: '))
+                valid_data = True
+        except ValueError as e:
+            print(f'Invalid data: {e}, please try again.\n')
     return players
 
 def main():
