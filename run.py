@@ -22,6 +22,8 @@ def throw_dices():
     Create a pseudo-random number between 1 and 6
     to emulate the rolling of dices.
     """
+    #Create the art of the throwing of the dices process
+
     loading = [
         "[        ]",
         "[>       ]",
@@ -60,6 +62,7 @@ def throw_dices():
         print(loading[i % len(loading)], end="\r")
         sleep(0.025)
         i += 1
+
     # trunk-ignore(bandit/B311)
     dice_1 = random.randint(1,6)
     # trunk-ignore(bandit/B311)
@@ -67,6 +70,12 @@ def throw_dices():
     return [dice_1, dice_2]
 
 def create_players():
+    """
+    Create the players and insert them in the sheet.
+    The players are created using the input data from the user
+    and getting the timestamp of the creation.
+    The results will be updated in the calculate_score function.
+    """
     players = []
     num_of_players = 0
     valid_data = False
@@ -88,15 +97,22 @@ def create_players():
     return players
 
 def get_question(dices,category):
+    """
+    Use the dice 1 result to select the category.
+    On the sheet, the correct result is always at the first column,
+    therefore the answers are shown in random order.
+    """
     category_sheet = SHEET.worksheet(category)
     # trunk-ignore(bandit/B311)
     question = category_sheet.row_values(random.randint(2,11))
+    #Creates a list of unordered numbers from a 1 to 4 range
+    one_to_four = random.sample([1,2,3,4],4)
     print(f'{question[0]}\n\n',
           'Your answer options are:\n\n',
-          f'A: {question[1]}\n',
-          f'B: {question[2]}\n',
-          f'C: {question[3]}\n',
-          f'D: {question[4]}\n',)
+          f'A: {question[one_to_four[0]]}\n',
+          f'B: {question[one_to_four[1]]}\n',
+          f'C: {question[one_to_four[2]]}\n',
+          f'D: {question[one_to_four[3]]}\n',)
 
 def start_timer():
     print('You have 10 seconds to answer')
