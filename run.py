@@ -23,6 +23,7 @@ def throw_dices():
     to emulate the rolling of dices.
     """
     #Create the art of the throwing of the dices process
+    #This animation is a modification of https://stackoverflow.com/questions/7039114/waiting-animation-in-command-prompt-python
 
     loading = [
         "[        ]",
