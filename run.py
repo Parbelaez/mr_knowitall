@@ -60,7 +60,9 @@ def throw_dices():
         print(loading[i % len(loading)], end="\r")
         sleep(0.025)
         i += 1
+    # trunk-ignore(bandit/B311)
     dice_1 = random.randint(1,6)
+    # trunk-ignore(bandit/B311)
     dice_2 = random.randint(1,6)
     return [dice_1, dice_2]
 
@@ -86,6 +88,7 @@ def create_players():
     return players
 
 def main():
+    category = ['General Knowledge','Art','History','Geography','Sports','Math']
     print("Welcome to the Mr. Know-it-all game!\n",
           "\n",
           "In this game, your knowledge on General Facts, History, Geography, art, and sports will be evaluated.\n\n",
@@ -97,7 +100,7 @@ def main():
           "\t3. History\n",
           "\t4. Geography\n",
           "\t5. Sports\n",
-          "\t6. Random (selected from all the previous ones)\n\n",
+          "\t6. Math (for which you will have 10s)\n\n",
           "- If your answer is correct, you will get the points from dice 2.\n",
           "- The game is won when any of the players reaches 100 points.\n\n")
 
@@ -111,5 +114,6 @@ def main():
                 y_key = input('Press "y" to throw the dices: ')
             dices = throw_dices()
             print(f'Dice 1: {dices[0]} , Dice 2: {dices[1]}')
+            print(f'Category: {category[dices[0]-1]} and you will be able to get {dices[1]} points')
 
 main()
