@@ -108,12 +108,41 @@ def get_question(dices,category):
     question = category_sheet.row_values(random.randint(2,11))
     #Creates a list of unordered numbers from a 1 to 4 range
     one_to_four = random.sample([1,2,3,4],4)
+    options = {
+        'option_' + str(one_to_four[0]) : 'A',
+        'option_' + str(one_to_four[1]) : 'B',
+        'option_' + str(one_to_four[2]) : 'C',
+        'option_' + str(one_to_four[3]) : 'D'
+    }
+    #CONTROL PRINT.... DELETE!!!!!!!!!!
+    print(options)
     print(f'{question[0]}\n\n',
           'Your answer options are:\n\n',
           f'A: {question[one_to_four[0]]}\n',
           f'B: {question[one_to_four[1]]}\n',
           f'C: {question[one_to_four[2]]}\n',
           f'D: {question[one_to_four[3]]}\n',)
+    #Returns the correct answer
+    return (options['option_1'])
+
+def get_answer(correct_answer):
+    answer = ''
+    options = ['a', 'b', 'c', 'd']
+    while (options.count(answer)):
+        try:
+            answer = input('Please, choose your answer (a, b, c, or d): ')
+            if (options.count(answer)):
+               if (answer == correct_answer):
+                   print('Correct!')
+               else:
+                   print('Sorry! Your answer was wrong.')
+            else:
+                raise ValueError(
+                    f'Please, enter an option from the list (a, b, c, d). You privided {answer}'
+                    )
+        except ValueError as e:
+            print(f'Invalid data: {e}, please try again.\n')
+
 
 def start_timer():
     print('You have 10 seconds to answer')
@@ -148,7 +177,8 @@ def main():
             print("\033c")
             print(f'Dice 1: {dices[0]} , Dice 2: {dices[1]}')
             print(f'Category: {category[dices[0]-1]} and you will be able to get {dices[1]} points.\n')
-            get_question(dices,category[dices[0]-1])
-            start_timer()
+            correct_answer = get_question(dices,category[dices[0]-1])
+            #start_timer()
+            get_answer(correct_answer)
 
 main()
