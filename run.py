@@ -128,14 +128,17 @@ def get_question(dices,category):
 def get_answer(correct_answer):
     answer = ''
     options = ['a', 'b', 'c', 'd']
-    while (options.count(answer)):
+    print(options.count(answer))
+    while (not options.count(answer)):
         try:
             answer = input('Please, choose your answer (a, b, c, or d): ')
             if (options.count(answer)):
-               if (answer == correct_answer):
+               if (answer.upper() == correct_answer):
                    print('Correct!')
+                   return(True)
                else:
                    print('Sorry! Your answer was wrong.')
+                   return(False)
             else:
                 raise ValueError(
                     f'Please, enter an option from the list (a, b, c, d). You privided {answer}'
@@ -143,6 +146,11 @@ def get_answer(correct_answer):
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
 
+def calculate_score(correct):
+    if(calculate_score):
+
+    else:
+        
 
 def start_timer():
     print('You have 10 seconds to answer')
@@ -166,7 +174,7 @@ def main():
           "- The game is won when any of the players reaches 100 points.\n\n")
 
     players = create_players()
-    print("Ok. Let's play!")
+    print("\nOk. Let's play!\n")
     while True:
         for player_num in range(len(players)):
             print(f'It is {players[player_num]} turn.')
@@ -178,7 +186,9 @@ def main():
             print(f'Dice 1: {dices[0]} , Dice 2: {dices[1]}')
             print(f'Category: {category[dices[0]-1]} and you will be able to get {dices[1]} points.\n')
             correct_answer = get_question(dices,category[dices[0]-1])
+            print(correct_answer)
             #start_timer()
-            get_answer(correct_answer)
+            correct = get_answer(correct_answer)
+            calculate_score(correct)
 
 main()
