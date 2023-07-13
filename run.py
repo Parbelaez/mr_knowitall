@@ -15,7 +15,41 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('mr_knowitall')
 
+def create_players():
+    """
+    Create the players and insert them in the sheet.
+    The players are created using the input data from the user
+    and getting the timestamp of the creation.
+    The results will be updated in the calculate_score function.
+    """
+    players = []
+    num_of_players = 0
+    valid_data = False
 
+    while valid_data is False:
+        num_of_players = input("Please,enter the number of players (1 to 4): ")
+        try:
+            int(num_of_players)
+            if int(num_of_players) < 1 or int(num_of_players) > 4:
+                raise ValueError(
+                    f'Please, enter a number between 1 and 4. You privided {num_of_players}'
+                    )
+            else:
+                for player_n in range(0, int(num_of_players)):
+                    player_name = input(f'Please, enter the name of player {player_n+1}: ')
+                    timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                    player = {
+                        "name" : player_name,
+                        "creation_timestamp" : timestamp
+                    }
+                    print(player_n, player)
+                    players.append(player)
+                    data = [player_name,timestamp]
+                    SHEET.worksheet('players').append_row(data)
+                valid_data = True
+        except ValueError as e:
+            print(f'Invalid data: {e}, please try again.\n')
+    return players
 
 def throw_dices():
     """
@@ -70,49 +104,6 @@ def throw_dices():
     dice_2 = random.randint(1,6)
     return [dice_1, dice_2]
 
-def create_players():
-    """
-    Create the players and insert them in the sheet.
-    The players are created using the input data from the user
-    and getting the timestamp of the creation.
-    The results will be updated in the calculate_score function.
-    """
-    players = []
-    # player = {
-    #     "name":"",
-    #     "creation_timestamp":"",
-    #     "score":0
-    # }
-    num_of_players = 0
-    valid_data = False
-    
-    while valid_data is False:
-        num_of_players = input("Please,enter the number of players (1 to 4): ")
-        try:
-            int(num_of_players)
-            if int(num_of_players) < 1 or int(num_of_players) > 4:
-                raise ValueError(
-                    f'Please, enter a number between 1 and 4. You privided {num_of_players}'
-                    )
-            else:
-                for player_n in range(0, int(num_of_players)):
-                    player_name = input(f'Please, enter the name of player {player_n+1}: ')
-                    timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-                    player = {
-                        "name" : player_name,
-                        "creation_timestamp" : timestamp,
-                        "score" : 0
-                    }
-                    print(player_n, player)
-                    players.append(player)
-                    data = [player_name,timestamp, 0]
-                    SHEET.worksheet('players').append_row(data)
-                valid_data = True
-        except ValueError as e:
-            print(f'Invalid data: {e}, please try again.\n')
-    print(players)
-    return players
-
 def get_question(dices,category):
     """
     Use the dice 1 result to select the category.
@@ -160,15 +151,43 @@ def get_answer(correct_answer):
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
 
-# def calculate_score(correct):
-#     if(correct):
-#         time.asctime
+def calculate_score(category,correct,player):
+    if(correct):
+        match category:
+            case 'General Knowledge':
+                column = 'C'
+            case 'Art':
+                column = 'E'
+            case 'History':
+                column = 'G'
+            case 'Geography':
+                column = 'I'
+            case 'Sports':
+                column = 'K'
+            case 'Math':
+                column = 'M'
+        results_cell = column + str(player+2)
+        previous_result = SHEET.worksheet('players').acell(results_cell).value
+        print(previous_result)
+        if(previous_result is None):
+            SHEET.worksheet('players').update(results_cell, 1)
+        else:
+            SHEET.worksheet('players').update(results_cell, int(previous_result) + 1)
 
-#     else:
-
-
-def start_timer():
-    print('You have 10 seconds to answer')
+    else:
+        match category:
+            case 'General Knowledge':
+                column = 4
+            case 'Art':
+                column = 6
+            case 'History':
+                column = 8
+            case 'Geography':
+                column = 10
+            case 'Sports':
+                column = 12
+            case 'Math':
+                column = 14
 
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
@@ -203,7 +222,7 @@ def main():
             correct_answer = get_question(dices,category[dices[0]-1])
             #start_timer()
             correct = get_answer(correct_answer)
-            print(correct)
+            calculate_score(category[dices[0]-1],correct,player_num)
             # calculate_score(correct)
 
 main()
