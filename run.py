@@ -1,6 +1,6 @@
 import random
 import gspread
-from time import sleep
+from time import sleep, gmtime, strftime
 from google.oauth2.service_account import Credentials
 
 
@@ -78,6 +78,11 @@ def create_players():
     The results will be updated in the calculate_score function.
     """
     players = []
+    # player = {
+    #     "name":"",
+    #     "creation_timestamp":"",
+    #     "score":0
+    # }
     num_of_players = 0
     valid_data = False
     
@@ -91,10 +96,21 @@ def create_players():
                     )
             else:
                 for player_n in range(0, int(num_of_players)):
-                    players.append(input(f'Please, enter the name of player {player_n+1}: '))
+                    player_name = input(f'Please, enter the name of player {player_n+1}: ')
+                    timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+                    player = {
+                        "name" : player_name,
+                        "creation_timestamp" : timestamp,
+                        "score" : 0
+                    }
+                    print(player_n, player)
+                    players.append(player)
+                    data = [player_name,timestamp, 0]
+                    SHEET.worksheet('players').append_row(data)
                 valid_data = True
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
+    print(players)
     return players
 
 def get_question(dices,category):
@@ -114,8 +130,7 @@ def get_question(dices,category):
         'option_' + str(one_to_four[2]) : 'C',
         'option_' + str(one_to_four[3]) : 'D'
     }
-    #CONTROL PRINT.... DELETE!!!!!!!!!!
-    print(options)
+    #Dictionary needes to translate the option into a correct answer
     print(f'{question[0]}\n\n',
           'Your answer options are:\n\n',
           f'A: {question[one_to_four[0]]}\n',
@@ -128,7 +143,6 @@ def get_question(dices,category):
 def get_answer(correct_answer):
     answer = ''
     options = ['a', 'b', 'c', 'd']
-    print(options.count(answer))
     while (not options.count(answer)):
         try:
             answer = input('Please, choose your answer (a, b, c, or d): ')
@@ -146,11 +160,12 @@ def get_answer(correct_answer):
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
 
-def calculate_score(correct):
-    if(calculate_score):
+# def calculate_score(correct):
+#     if(correct):
+#         time.asctime
 
-    else:
-        
+#     else:
+
 
 def start_timer():
     print('You have 10 seconds to answer')
@@ -186,9 +201,9 @@ def main():
             print(f'Dice 1: {dices[0]} , Dice 2: {dices[1]}')
             print(f'Category: {category[dices[0]-1]} and you will be able to get {dices[1]} points.\n')
             correct_answer = get_question(dices,category[dices[0]-1])
-            print(correct_answer)
             #start_timer()
             correct = get_answer(correct_answer)
-            calculate_score(correct)
+            print(correct)
+            # calculate_score(correct)
 
 main()
