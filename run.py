@@ -192,7 +192,7 @@ def main():
     print("\nOk. Let's play!\n")
     while True:
         for player_num in range(len(players)):
-            print(f'It is {players[player_num]} turn.')
+            print(f'It is {players[player_num]["name"]} turn.')
             y_key = ""
             while  y_key != "y":
                 y_key = input('Press "y" to throw the dices: ')
