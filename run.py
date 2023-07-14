@@ -175,10 +175,9 @@ def calculate_score(category,correct,player,dice):
                 column = 13
         previous_result = SHEET.worksheet('players').cell(player + 2, column).value
         if(previous_result is None):
-            # print(player + 2, column, dice)
-            SHEET.worksheet('players').update_cell(player + 2, column, dice) #!deprecated in version 6.0.0 of gspread
+            SHEET.worksheet('players').update_cell(player + 2, column, dice)
         else:
-            SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
+            SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice)
         scores_row = SHEET.worksheet('players').row_values(player+2)
         new_total_correct = 0
         for i in range(3, len(scores_row), 2):
@@ -202,9 +201,9 @@ def calculate_score(category,correct,player,dice):
         # results_cell = column + str(player+2)
         previous_result = SHEET.worksheet('players').cell(player + 2, column).value
         if(previous_result is None):
-            SHEET.worksheet('players').update(player + 2, column, dice) #!deprecated in version 6.0.0 of gspread
+            SHEET.worksheet('players').update(player + 2, column, dice)
         else:
-            SHEET.worksheet('players').update(player + 2, column, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
+            SHEET.worksheet('players').update(player + 2, column, int(previous_result) + dice)
     return(None)
 
 def update_leaders_board(new_score, player):
@@ -241,8 +240,6 @@ def new_game():
     SHEET.worksheet('players').batch_clear(["A2:N5"])
     exit()
 
-
-#TODO create the leaders board
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
     f = open("welcome.txt", "r")
@@ -262,7 +259,6 @@ def main():
             print(f'Dice 1: {dice[0]} , Dice 2: {dice[1]}')
             print(f'Category: {category[dice[0]-1]} and you will be able to get {dice[1]} points.\n')
             correct_answer = get_question(dice,category[dice[0]-1])
-            #start_timer()
             correct = get_answer(correct_answer)
             new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
             print(new_score)
