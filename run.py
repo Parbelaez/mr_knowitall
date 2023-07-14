@@ -212,19 +212,23 @@ def new_game():
     If not, exit the program.
     """
 
-    # The idea of the timer was taken from https://i.stack.imgur.com/qhTnh.png
-    play_again = input("Do you want to play one more time (y/n)?")
+    # The idea of the timer was taken from https://i.stack.imgur.com/qhTnh.pn
     wait = 60
-    start = time.time()
-    while time.time() - start < wait:
+    start = time()
+    while time() - start < wait:
+        play_again = input("Do you want to play one more time (y/n)?")
         if(play_again == "y"):
             main()
         else:
             print("Thanks for playing! See you next time!")
             sleep(5)
             exit()
+    print("It's been a minute... see you next time!")
+    sleep(5)
+    exit()
 
 
+#TODO create the leaders board
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
     f = open("welcome.txt", "r")
@@ -248,7 +252,7 @@ def main():
             correct = get_answer(correct_answer)
             new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
             print(new_score)
-            if new_score >= 50:
+            if new_score >= 10:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
                 new_game()
 
