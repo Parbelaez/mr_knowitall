@@ -1,0 +1,20 @@
+
+Welcome to the Mr. Know-it-all game!
+
+In this game, your knowledge of General Facts, History, Geography, art, and sports will be evaluated.
+
+RULES OF THE GAME:
+
+    - Throw the dice on each turn.
+
+    - Dice 1 will determine the category of the question:
+        1 = General Knowledge,
+        2 = Art
+        3 = History
+        4 = Geography
+        5 = Sports
+        6 = Math
+
+    - If your answer is correct, you will get the points from dice 2.
+
+    - The game is won when any of the players reaches 50 points.

@@ -208,22 +208,9 @@ def calculate_score(category,correct,player,dice):
 
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
-    print("Welcome to the Mr. Know-it-all game!\n",
-          "\n",
-          "In this game, your knowledge on General Facts, History, Geography, art, and sports will be evaluated.\n\n",
-          "RULES OF THE GAME:\n\n",
-          "- Throw the dices on each turn.\n",
-          "- Dice 1 will determine the category of the question:\n",
-          "\t1. General Knowledge\n",
-          "\t2. Art\n",
-          "\t3. History\n",
-          "\t4. Geography\n",
-          "\t5. Sports\n",
-          "\t6. Math (for which you will have 10s)\n\n",
-          "- If your answer is correct, you will get the points from dice 2.\n",
-          "- If your answer a math question correctly in less than 5 seconds, you will get double the points.\n",
-          "- The game is won when any of the players reaches 100 points.\n\n")
-
+    f = open("welcome.txt", "r")
+    print(f.read())
+    f.close()
     players = create_players()
     print("\nOk. Let's play!\n")
     while True:
