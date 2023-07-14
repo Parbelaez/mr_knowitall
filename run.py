@@ -201,9 +201,9 @@ def calculate_score(category,correct,player,dice):
         # results_cell = column + str(player+2)
         previous_result = SHEET.worksheet('players').cell(player + 2, column).value
         if(previous_result is None):
-            SHEET.worksheet('players').update(player + 2, column, dice)
+            SHEET.worksheet('players').update_cell(player + 2, column, dice)
         else:
-            SHEET.worksheet('players').update(player + 2, column, int(previous_result) + dice)
+            SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice)
     return(None)
 
 def update_leaders_board(new_score, player):
@@ -213,7 +213,7 @@ def update_leaders_board(new_score, player):
     all_records = sorted(all_records, key=itemgetter(2), reverse=True)
     print("LEADER BOARD\n")
     print('Name\t\t', 'Date\t\t\t', 'Score')
-    for i in range(5):
+    for i in range(5 if len(all_records) > 5 else len(all_records)):
         print(f'{all_records[i][0]}\t\t{all_records[i][1]}\t\t{all_records[i][2]}')
 
 def new_game():
@@ -242,6 +242,7 @@ def new_game():
 
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
+    SHEET.worksheet('players').batch_clear(["A2:N5"])
     f = open("welcome.txt", "r")
     print("\033c")
     print(f.read())
@@ -252,7 +253,7 @@ def main():
         for player_num in range(len(players)):
             print(f'It is {players[player_num]["name"]} turn.')
             y_key = ""
-            while  y_key != "y":
+            while  y_key.lower() != "y":
                 y_key = input('Press "y" to throw the dice: ')
             dice = throw_dice()
             print("\033c")
@@ -261,8 +262,8 @@ def main():
             correct_answer = get_question(dice,category[dice[0]-1])
             correct = get_answer(correct_answer)
             new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
-            print(new_score)
-            if new_score >= 1:
+            print(new_score) #! DELETE
+            if (new_score if new_score is not None else 0) >= 1:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
                 update_leaders_board(new_score, players[player_num]["name"])
                 new_game()
