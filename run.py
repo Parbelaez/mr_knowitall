@@ -1,5 +1,6 @@
 import random
 import gspread
+from operator import itemgetter
 from time import sleep, gmtime, strftime, time
 from google.oauth2.service_account import Credentials
 
@@ -174,7 +175,7 @@ def calculate_score(category,correct,player,dice):
                 column = 13
         previous_result = SHEET.worksheet('players').cell(player + 2, column).value
         if(previous_result is None):
-            print(player + 2, column, dice)
+            # print(player + 2, column, dice)
             SHEET.worksheet('players').update_cell(player + 2, column, dice) #!deprecated in version 6.0.0 of gspread
         else:
             SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
@@ -198,13 +199,23 @@ def calculate_score(category,correct,player,dice):
                 column = 12
             case 'Math':
                 column = 14
-        results_cell = column + str(player+2)
-        previous_result = SHEET.worksheet('players').acell(results_cell).value
+        # results_cell = column + str(player+2)
+        previous_result = SHEET.worksheet('players').cell(player + 2, column).value
         if(previous_result is None):
-            SHEET.worksheet('players').update(results_cell, dice) #!deprecated in version 6.0.0 of gspread
+            SHEET.worksheet('players').update(player + 2, column, dice) #!deprecated in version 6.0.0 of gspread
         else:
-            SHEET.worksheet('players').update(results_cell, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
+            SHEET.worksheet('players').update(player + 2, column, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
     return(None)
+
+def update_leaders_board(new_score, player):
+    SHEET.worksheet('players_log').append_row([player, strftime("%Y-%m-%d %H:%M:%S", gmtime()), new_score])
+    all_records = SHEET.worksheet('players_log').get_all_values()
+    all_records.pop(0)
+    all_records = sorted(all_records, key=itemgetter(2), reverse=True)
+    print("LEADER BOARD\n")
+    print('Name\t\t', 'Date\t\t\t', 'Score')
+    for i in range(5):
+        print(f'{all_records[i][0]}\t\t{all_records[i][1]}\t\t{all_records[i][2]}')
 
 def new_game():
     """
@@ -216,15 +227,18 @@ def new_game():
     wait = 60
     start = time()
     while time() - start < wait:
-        play_again = input("Do you want to play one more time (y/n)?")
+        play_again = input("\nDo you want to play one more time (y/n)?")
         if(play_again == "y"):
+            SHEET.worksheet('players').batch_clear(["A2:N5"])
             main()
         else:
-            print("Thanks for playing! See you next time!")
-            sleep(5)
+            print("Thanks for playing! See you next time!\n")
+            sleep(3)
+            SHEET.worksheet('players').batch_clear(["A2:N5"])
             exit()
-    print("It's been a minute... see you next time!")
-    sleep(5)
+    print("It's been a minute... see you next time!\n")
+    sleep(3)
+    SHEET.worksheet('players').batch_clear(["A2:N5"])
     exit()
 
 
@@ -252,8 +266,9 @@ def main():
             correct = get_answer(correct_answer)
             new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
             print(new_score)
-            if new_score >= 10:
+            if new_score >= 1:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
+                update_leaders_board(new_score, players[player_num]["name"])
                 new_game()
 
 main()
