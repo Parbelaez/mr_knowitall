@@ -42,9 +42,8 @@ def create_players():
                         "name" : player_name,
                         "creation_timestamp" : timestamp
                     }
-                    print(player_n, player)
                     players.append(player)
-                    data = [player_name,timestamp]
+                    data = [player_name,timestamp,0,0,0,0,0,0,0,0,0,0,0,0]
                     SHEET.worksheet('players').append_row(data)
                 valid_data = True
         except ValueError as e:
@@ -151,28 +150,39 @@ def get_answer(correct_answer):
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
 
-def calculate_score(category,correct,player):
+# TODO: refactor... categories in a list and only 1 update routine
+
+def calculate_score(category,correct,player,dice):
+    """
+    Take the category and looks for the previous score values for correct and incorrect.
+    Sum the dice 2 result to the previous score.
+    Calculate the new total and returns the value.
+    """
     if(correct):
         match category:
             case 'General Knowledge':
-                column = 'C'
+                column = 3
             case 'Art':
-                column = 'E'
+                column = 5
             case 'History':
-                column = 'G'
+                column = 7
             case 'Geography':
-                column = 'I'
+                column = 9
             case 'Sports':
-                column = 'K'
+                column = 11
             case 'Math':
-                column = 'M'
-        results_cell = column + str(player+2)
-        previous_result = SHEET.worksheet('players').acell(results_cell).value
-        print(previous_result)
+                column = 13
+        previous_result = SHEET.worksheet('players').cell(player + 2, column).value
         if(previous_result is None):
-            SHEET.worksheet('players').update(results_cell, 1)
+            print(player + 2, column, dice)
+            SHEET.worksheet('players').update_cell(player + 2, column, dice) #!deprecated in version 6.0.0 of gspread
         else:
-            SHEET.worksheet('players').update(results_cell, int(previous_result) + 1)
+            SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
+        scores_row = SHEET.worksheet('players').row_values(player+2)
+        new_total_correct = 0
+        for i in range(3, len(scores_row), 2):
+            new_total_correct += int(scores_row[i-1])
+        return(new_total_correct)
 
     else:
         match category:
@@ -188,6 +198,13 @@ def calculate_score(category,correct,player):
                 column = 12
             case 'Math':
                 column = 14
+        results_cell = column + str(player+2)
+        previous_result = SHEET.worksheet('players').acell(results_cell).value
+        if(previous_result is None):
+            SHEET.worksheet('players').update(results_cell, dice) #!deprecated in version 6.0.0 of gspread
+        else:
+            SHEET.worksheet('players').update(results_cell, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
+    return(None)
 
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
@@ -222,7 +239,10 @@ def main():
             correct_answer = get_question(dices,category[dices[0]-1])
             #start_timer()
             correct = get_answer(correct_answer)
-            calculate_score(category[dices[0]-1],correct,player_num)
-            # calculate_score(correct)
+            new_score = calculate_score(category[dices[0]-1],correct,player_num, dices[1])
+            print(new_score)
+            if new_score >= 50:
+                print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
+                break
 
 main()
