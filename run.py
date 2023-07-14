@@ -1,6 +1,6 @@
 import random
 import gspread
-from time import sleep, gmtime, strftime
+from time import sleep, gmtime, strftime, time
 from google.oauth2.service_account import Credentials
 
 
@@ -50,7 +50,7 @@ def create_players():
             print(f'Invalid data: {e}, please try again.\n')
     return players
 
-def throw_dices():
+def throw_dice():
     """
     Create a pseudo-random number between 1 and 6
     to emulate the rolling of dices.
@@ -206,9 +206,29 @@ def calculate_score(category,correct,player,dice):
             SHEET.worksheet('players').update(results_cell, int(previous_result) + dice) #!deprecated in version 6.0.0 of gspread
     return(None)
 
+def new_game():
+    """
+    Ask the player(s) if they would like to play again.
+    If not, exit the program.
+    """
+
+    # The idea of the timer was taken from https://i.stack.imgur.com/qhTnh.png
+    play_again = input("Do you want to play one more time (y/n)?")
+    wait = 60
+    start = time.time()
+    while time.time() - start < wait:
+        if(play_again == "y"):
+            main()
+        else:
+            print("Thanks for playing! See you next time!")
+            sleep(5)
+            exit()
+
+
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
     f = open("welcome.txt", "r")
+    print("\033c")
     print(f.read())
     f.close()
     players = create_players()
@@ -218,18 +238,18 @@ def main():
             print(f'It is {players[player_num]["name"]} turn.')
             y_key = ""
             while  y_key != "y":
-                y_key = input('Press "y" to throw the dices: ')
-            dices = throw_dices()
+                y_key = input('Press "y" to throw the dice: ')
+            dice = throw_dice()
             print("\033c")
-            print(f'Dice 1: {dices[0]} , Dice 2: {dices[1]}')
-            print(f'Category: {category[dices[0]-1]} and you will be able to get {dices[1]} points.\n')
-            correct_answer = get_question(dices,category[dices[0]-1])
+            print(f'Dice 1: {dice[0]} , Dice 2: {dice[1]}')
+            print(f'Category: {category[dice[0]-1]} and you will be able to get {dice[1]} points.\n')
+            correct_answer = get_question(dice,category[dice[0]-1])
             #start_timer()
             correct = get_answer(correct_answer)
-            new_score = calculate_score(category[dices[0]-1],correct,player_num, dices[1])
+            new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
             print(new_score)
             if new_score >= 50:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
-                break
+                new_game()
 
 main()
