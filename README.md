@@ -43,7 +43,7 @@ The second die will determine the points that the player will gain if answers co
 
 After each question, the turn will be passed to the next player.
 
-The game will continue until one of the players get the score stated by the programmer in the [Setting the winning score section](#setting-the-winning-score).
+The game will continue until one of the players get the score stated by the programmer in the [Setting the winning score section](#winning-score).
 
 ## Design
 
@@ -117,7 +117,6 @@ question = category_sheet.row_values(random.randint(2,nbr_of_rows - 1))
 ##### Loading animation
 
 For this, it only would be needed to change the sequence list in the `throw_dice` function.
-
 
 <!-- trunk-ignore(markdownlint/MD040) -->
 <!-- trunk-ignore(markdownlint/MD046) -->
