@@ -63,8 +63,13 @@ The programmer can change this value according to his/her needs.
 
 ### Adding new questions
 
-All new questions all stored in the Google Sheets file, but the file can grow as much as needed/wanted. The code is already adapted to have as many questions per category as the programmer wants.
+All new questions are stored in the Google Sheets file, but the file can grow as much as needed/wanted. The code is already adapted to have as many questions per category as the programmer wants.
 
-
+<!-- trunk-ignore(markdownlint/MD046) -->
+```Python
+category_sheet = SHEET.worksheet(category)
+nbr_of_rows = len(category_sheet.get_all_values())
+question = category_sheet.row_values(random.randint(2,nbr_of_rows - 1))
+```
 
 ### Leader board (top n)
