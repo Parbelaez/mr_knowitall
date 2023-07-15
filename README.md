@@ -69,6 +69,66 @@ All game stages have explicit instructions, and each time an input is required, 
 
 ![Rules and UX example](./assets/images/rules_ux.png)
 
+Administrator:
+
+The administrator will have the chance to modify the following parameters and features:
+
+- `max_num_players` (determines up to how many players can the game have):
+  - Default value = 4
+
+   ![max_num_players](./assets/images/max_num_players.png)
+
+   **NOTE:** The sheets file will respond accordingly.
+
+- Increase, decrease, or modify the questions:
+
+It can be done directly in the Google Sheets file. The code is already content agnostic, hence, no modification is needed in the `run.py` file.
+
+- Loading animation:
+
+For this, it only would be needed to change the sequence list in the `throw_dice` function.
+
+
+<!-- trunk-ignore(markdownlint/MD040) -->
+<!-- trunk-ignore(markdownlint/MD046) -->
+```
+loading = [
+        "[        ]",
+        "[>       ]",
+        "[>>      ]",
+        "[>>>     ]",
+        "[>>>>    ]",
+        "[>>>>>   ]",
+        "[>>>>>>  ]",
+        "[>>>>>>> ]",
+        "[>>>>>>>>]",
+        "[ >>>>>>>]",
+        "[  >>>>>>]",
+        "[   >>>>>]",
+        "[    >>>>]",
+        "[     >>>]",
+        "[      >>]",
+        "[       >]",
+        "[        ]",
+        "[       <]",
+        "[      <<]",
+        "[     <<<]",
+        "[    <<<<]",
+        "[   <<<<<]",
+        "[  <<<<<<]",
+        "[ <<<<<<<]",
+        "[<<<<<<<<]",
+        "[<<<<<<< ]",
+        "[<<<<<<  ]",
+        "[<<<<<   ]",
+        "[<<<<    ]",
+        "[<<<     ]",
+        "[<<      ]",
+        "[<       ]"
+        ]
+```
+
+
 ## Structure
 
 ## Customizable parameters

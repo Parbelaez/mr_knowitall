@@ -25,15 +25,16 @@ def create_players():
     """
     players = []
     num_of_players = 0
+    max_num_players = 4
     valid_data = False
 
     while valid_data is False:
         num_of_players = input("Please,enter the number of players (1 to 4): ")
         try:
             int(num_of_players)
-            if int(num_of_players) < 1 or int(num_of_players) > 4:
+            if int(num_of_players) < 1 or int(num_of_players) > max_num_players:
                 raise ValueError(
-                    f'\nPlease, enter a number between 1 and 4. You privided {num_of_players}'
+                    f'\nPlease, enter a number between 1 and {max_num_players}. You privided {num_of_players}'
                     )
             else:
                 for player_n in range(0, int(num_of_players)):
