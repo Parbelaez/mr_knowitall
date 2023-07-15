@@ -14,7 +14,13 @@ Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up 
 - [User experience (UX)](#user-experience-ux)
   - [User Stories](#user-stories)
   - [Strategy](#strategy)
-    -
+    - [User](#user)
+    - [Administrator](#administrator)
+      - [Welcome Message](#welcome-message)
+      - [Maximum Number of Players](#maximum-number-of-players-max_num_players)
+      - [Increase, decrease, or modify the questions](#increase-decrease-or-modify-the-questions)
+      - [Loading animation](#loading-animation)
+      - [Winning Score](#winning-score)
 - [Structure](#structure)
   - [Leader board (top n)](#leader-board-top-n)
 
@@ -61,30 +67,31 @@ The design of the game was based on CLI, therefore, one of the goals was to be a
 
 All stories are based on accessibility, either for the user and the way to interact with the game, or for the programmer and the easiness in modifying the game settings.
 
-#### User:
+#### User
 
 All game stages have explicit instructions, and each time an input is required, the game will clearly state what are the options and will react to them, as shown below:
 
 ![Rules and UX example](./assets/images/rules_ux.png)
 
-#### Administrator:
+#### Administrator
 
 The administrator will have the chance to modify the following parameters and features:
 
-##### Welcome message:
+##### Welcome message
 
 The welcome message is stored in the [welcome.txt](./welcome.txt) file.
 
 Any change in this file will be reflected in the welcome message in the terminal.
 
-##### `max_num_players` (determines up to how many players can the game have):
-  - Default value = 4
+##### Maximum Number of Players (`max_num_players`)
+
+- Default value = 4
 
    ![max_num_players](./assets/images/max_num_players.png)
 
    **NOTE:** The sheets file will respond accordingly.
 
-##### Increase, decrease, or modify the questions:
+##### Increase, decrease, or modify the questions
 
 It can be done directly in the Google Sheets file. The code is already content agnostic, hence, no modification is needed in the `run.py` file.
 
@@ -97,7 +104,7 @@ nbr_of_rows = len(category_sheet.get_all_values())
 question = category_sheet.row_values(random.randint(2,nbr_of_rows - 1))
 ```
 
-##### Loading animation:
+##### Loading animation
 
 For this, it only would be needed to change the sequence list in the `throw_dice` function.
 
