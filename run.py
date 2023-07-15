@@ -264,7 +264,7 @@ def main():
             correct_answer = get_question(dice,category[dice[0]-1])
             correct = get_answer(correct_answer)
             new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
-            print(f'\n{players[player_num]["name"]}, your score is {new_score}\n')
+            print(f'\n{players[player_num]["name"]}, your score is {new_score if new_score is not None else 0}\n')
             if (new_score if new_score is not None else 0) >= winning_score:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
                 update_leaders_board(new_score, players[player_num]["name"])
