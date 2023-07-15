@@ -111,8 +111,9 @@ def get_question(dices,category):
     therefore the answers are shown in random order.
     """
     category_sheet = SHEET.worksheet(category)
+    nbr_of_rows = len(category_sheet.get_all_values())
     # trunk-ignore(bandit/B311)
-    question = category_sheet.row_values(random.randint(2,11))
+    question = category_sheet.row_values(random.randint(2,nbr_of_rows - 1))
     #Creates a list of unordered numbers from a 1 to 4 range
     one_to_four = random.sample([1,2,3,4],4)
     options = {
@@ -139,7 +140,7 @@ def get_answer(correct_answer):
             answer = input('Please, choose your answer (a, b, c, or d): ')
             if (options.count(answer)):
                if (answer.upper() == correct_answer):
-                   print('Correct!')
+                   print('Correct!\n')
                    return(True)
                else:
                    print('Sorry! Your answer was wrong.')
@@ -252,7 +253,7 @@ def main():
     print("\nOk. Let's play!\n")
     while True:
         for player_num in range(len(players)):
-            print(f'It is {players[player_num]["name"]} turn.')
+            print(f"It is {players[player_num]['name']}'s turn.\n")
             y_key = ""
             while  y_key.lower() != "y":
                 y_key = input('Press "y" to throw the dice: ')
@@ -263,7 +264,7 @@ def main():
             correct_answer = get_question(dice,category[dice[0]-1])
             correct = get_answer(correct_answer)
             new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
-            print(new_score) #! DELETE
+            print(f'\n{players[player_num]["name"]}, your score is {new_score}\n')
             if (new_score if new_score is not None else 0) >= winning_score:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
                 update_leaders_board(new_score, players[player_num]["name"])

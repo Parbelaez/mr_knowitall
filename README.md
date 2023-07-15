@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up to 4) will answer questions of different topics until one of them reaches a specific score (set by the programmer).
+Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up to 4) will answer questions on different topics until one of them reaches a specific score (set by the programmer).
 
 ![Mr. Know-it-all UI](./assets/images/mkia_welcome.png)
 
@@ -62,5 +62,9 @@ The programmer can change this value according to his/her needs.
 **NOTE:** when changing the winning_score variable, remember to update the [welcome.txt](./welcome.txt) file.
 
 ### Adding new questions
+
+All new questions all stored in the Google Sheets file, but the file can grow as much as needed/wanted. The code is already adapted to have as many questions per category as the programmer wants.
+
+
 
 ### Leader board (top n)
