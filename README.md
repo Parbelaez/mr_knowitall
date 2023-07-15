@@ -39,11 +39,26 @@ The game will continue until one of the players get the score stated by the prog
 
 ## Design
 
+The design of the game was based on CLI, therefore, one of the goals was to be as clear as possible, so the user would be always aware of how the interaction should take place, namely, what keys or characters should be inserted to play the game and navigate through its segments.
+
 ## Flow Chart
+
+![Flow Chart](./assets/images/flowchart.png)
 
 ## User experience (UX)
 
 ### User Stories
+
+- As a player, I want to:
+  - Have clear indications on how to play.
+  - Have an easy-to-understand UI.
+  - Have the expected inputs from my side which are also non-case sensitive.
+  - Display a leaders board, so I can know what the top 5 scores are.
+
+- As a Game Administrator (programmer), I want to:
+  - Be able to easily modify the question and their quantity.
+  - Be able to easily modify the **winning score**.
+
 
 ### Strategy
 
