@@ -242,6 +242,7 @@ def new_game():
 
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
+    winning_score =  50
     SHEET.worksheet('players').batch_clear(["A2:N5"])
     f = open("welcome.txt", "r")
     print("\033c")
@@ -263,7 +264,7 @@ def main():
             correct = get_answer(correct_answer)
             new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
             print(new_score) #! DELETE
-            if (new_score if new_score is not None else 0) >= 1:
+            if (new_score if new_score is not None else 0) >= winning_score:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
                 update_leaders_board(new_score, players[player_num]["name"])
                 new_game()

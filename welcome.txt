@@ -8,7 +8,7 @@ RULES OF THE GAME:
     - Throw the dice on each turn.
 
     - Dice 1 will determine the category of the question:
-        1 = General Knowledge,
+        1 = General Knowledge
         2 = Art
         3 = History
         4 = Geography

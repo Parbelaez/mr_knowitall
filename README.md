@@ -1,32 +1,66 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Mr. Know-it-all Game
 
-Welcome,
+## Introduction
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up to 4) will answer questions of different topics until one of them reaches a specific score (set by the programmer).
 
-## Reminders
+![Mr. Know-it-all UI](./assets/images/mkia_welcome.png)
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+## Table of contents
 
-## Creating the Heroku app
+- [Rules of the game](#rules-of-the-game)
+- [Design](#design)
+- [Flow Chart](#flow-chart)
+- [User experience (UX)](#user-experience-ux)
+  - [User Stories](#user-stories)
+  - [Strategy](#strategy)
+- [Structure](#structure)
+- [Customizable Parameters](#customizable-parameters)
+  - [Setting the winning score](#setting-the-winning-score)
+  - [Adding new questions](#adding-new-questions)
+  - [Leader board (top n)](#leader-board-top-n)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+## Rules of the game
 
-1. `heroku/python`
-2. `heroku/nodejs`
+The players will throw the dice, and die 1 will determine the category:
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+    1 = General Knowledge
+    2 = Art
+    3 = History
+    4 = Geography
+    5 = Sports
+    6 = Math
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+The second die will determine the points that the player will gain if answers correctly.
 
-Connect your GitHub repository and deploy as normal.
+After each question, the turn will be passed to the next player.
 
-## Constraints
+The game will continue until one of the players get the score stated by the programmer in the [Setting the winning score section](#setting-the-winning-score).
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+## Design
 
----
+## Flow Chart
 
-Happy coding!
+## User experience (UX)
+
+### User Stories
+
+### Strategy
+
+## Structure
+
+## Customizable parameters
+
+### Setting the winning score
+
+The winning_score variable at the beginning of the main function will set the number of points that a player should get to be declared as the winner.
+
+![winning_score variable](./assets/images/winning_score.png)
+
+The programmer can change this value according to his/her needs.
+
+**NOTE:** when changing the winning_score variable, remember to update the [welcome.txt](./welcome.txt) file.
+
+### Adding new questions
+
+### Leader board (top n)
