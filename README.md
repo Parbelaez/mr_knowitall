@@ -78,7 +78,7 @@ All game stages have explicit instructions, and each time an input is required, 
 
 At the end of each game, the leader board is shown with the top n scores in the recorded history of the game.
 
-![Leader Board]()
+![Leader Board](./assets/images/leader_board.png)
 
 #### Administrator
 

@@ -212,7 +212,8 @@ def update_leaders_board(new_score, player):
     SHEET.worksheet('players_log').append_row([player, strftime("%Y-%m-%d %H:%M:%S", gmtime()), new_score])
     all_records = SHEET.worksheet('players_log').get_all_values()
     all_records.pop(0)
-    all_records = sorted(all_records, key=itemgetter(2), reverse=True)
+    # all_records = sorted(all_records, key=itemgetter(2), reverse=True)
+    all_records = sorted(all_records, key=lambda x: int(itemgetter(2)(x)), reverse=True)
     print("LEADER BOARD\n")
     print('Name\t\t\t', 'Date\t\t\t', 'Score')
     for i in range(5 if len(all_records) > 5 else len(all_records)):
@@ -260,7 +261,7 @@ def main():
                 y_key = input('Press "y" to throw the dice: ')
             dice = throw_dice()
             print("\033c")
-            print(f'Dice 1: {dice[0]} , Dice 2: {dice[1]}')
+            print(f'Die 1: {dice[0]} , Die 2: {dice[1]}')
             print(f'Category: {category[dice[0]-1]} and you will be able to get {dice[1]} points.\n')
             correct_answer = get_question(dice,category[dice[0]-1])
             correct = get_answer(correct_answer)
