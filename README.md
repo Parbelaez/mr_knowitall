@@ -22,8 +22,8 @@ Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up 
       - [Increase, decrease, or modify the questions](#increase-decrease-or-modify-the-questions)
       - [Loading animation](#loading-animation)
       - [Winning Score](#winning-score)
-- [Structure](#structure)
 - [Future Improvements](#future-improvements)
+- [Deployment]()
 
 ## Rules of the game
 
@@ -165,9 +165,55 @@ The programmer can change this value according to his/her needs.
 
 **NOTE:** when changing the winning_score variable, remember to update the [welcome.txt](./welcome.txt) file.
 
-## Structure
-
 ## Future Improvements
 
 - Make the game feasible to have, instead of a maximum score, a maximum of correctly answered questions.
 - Make the game feasible to replicate a graphical board game.
+
+## Technologies used
+
+### Languages
+
+- [Python](https://www.python.org/) - to build all the game functionalities.
+- [gspread](https://docs.gspread.org/en/latest/index.html) - library used for the Google Sheets API functionality and data handling.
+
+### Programs and Tools
+
+- [Visual Studio Code](https://code.visualstudio.com/) - the code editor being used to build the project.
+- [Git](https://git-scm.com/) - the built-in Git feature in VS Code was used for version control and push to github.
+- [Github](https://github.com/) - Github is used to store all project's code.
+- [Heroku](https://www.heroku.com/) - deployment platform.
+
+## Deployment, forking and cloning
+
+### Deployment to Heroku
+
+1. Log in to [Heroku](https://www.heroku.com/)
+2. On top right corner of the screen, locate the `New` button and the choose `Create new app`.
+3. Give a unique name to the app, choose the appropriate region and click `Create`.
+4. Access your app dashboard and click on `Deploy`.
+5. Under `Deployment method`, choose GitHub and coonect to the respective repository.
+6. Enable automatic deployment and click `Deploy`.
+7. Set up environment on Heroku by going to `Settings` tab.
+8. On `Config Vars` section, click `Reveal Config Vars`
+9. Based on `env.py` file, add all the environment variables to the `Config Vars` section.
+10. On top right coner of the app's dashboard, locate the button `Open app`. You will be able to see you deployed app with link to live site.
+
+### Forking the project
+
+Follow these steps to fork this project:
+
+1. Log in to GitHub and navigate to this project's respository: [mr_knowitall](https://github.com/Parbelaez/mr_knowitall).
+2. Just above the navigation menu of the repository (above the Settings button), locate the Fork button.
+3. The original copy of the repository is now copied on your GitHub account which allows you to view and/or work on the codes without affecting the original work.
+
+### Cloning the project
+
+Follow these steps to clone this project:
+
+1. Log in to GitHub and navigate to this project's respository: [mr_knowitall](https://github.com/Parbelaez/mr_knowitall).
+2. Under the navigation menu of the repository, locate and click the button "Code" which shows different options to clone or download.
+3. To clone this repository using HTTPS, copy the link under "Clone with HTTPS".
+4. Open Git terminal.
+5. If needed, change the current workspace to the location where you want the repository to be cloned
+6. Type git clone and paste in the URL copied in step 3 and press Enter.
