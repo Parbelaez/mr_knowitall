@@ -59,8 +59,15 @@ The design of the game was based on CLI, therefore, one of the goals was to be a
   - Be able to easily modify the question and their quantity.
   - Be able to easily modify the **winning score**.
 
-
 ### Strategy
+
+All stories are based on accessibility, either for the user and the way to interact with the game, or for the programmer and the easiness in modifying the game settings.
+
+User:
+
+All game stages have explicit instructions, and each time an input is required, the game will clearly state what are the options and will react to it, as shown below:
+
+![Rules and UX example](./assets/images/rules_ux.png)
 
 ## Structure
 

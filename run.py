@@ -33,11 +33,11 @@ def create_players():
             int(num_of_players)
             if int(num_of_players) < 1 or int(num_of_players) > 4:
                 raise ValueError(
-                    f'Please, enter a number between 1 and 4. You privided {num_of_players}'
+                    f'\nPlease, enter a number between 1 and 4. You privided {num_of_players}'
                     )
             else:
                 for player_n in range(0, int(num_of_players)):
-                    player_name = input(f'Please, enter the name of player {player_n+1}: ')
+                    player_name = input(f'\nPlease, enter the name of player {player_n+1}: ')
                     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                     player = {
                         "name" : player_name,
