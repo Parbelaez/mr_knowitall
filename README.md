@@ -23,7 +23,10 @@ Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up 
       - [Loading animation](#loading-animation)
       - [Winning Score](#winning-score)
 - [Future Improvements](#future-improvements)
-- [Deployment]()
+- [Deployment, forking, and cloning](#deployment-forking-and-cloning)
+  - [Deployment to Heroku](#deployment-to-heroku)
+  - [Forking the project](#forking-the-project)
+  - [Cloning the project](#cloning-the-project)
 
 ## Rules of the game
 
