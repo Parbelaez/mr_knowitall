@@ -214,7 +214,7 @@ def update_leaders_board(new_score, player):
     all_records.pop(0)
     all_records = sorted(all_records, key=itemgetter(2), reverse=True)
     print("LEADER BOARD\n")
-    print('Name\t\t', 'Date\t\t\t', 'Score')
+    print('Name\t\t\t', 'Date\t\t\t', 'Score')
     for i in range(5 if len(all_records) > 5 else len(all_records)):
         print(f'{all_records[i][0]}\t\t{all_records[i][1]}\t\t{all_records[i][2]}')
 
@@ -244,7 +244,7 @@ def new_game():
 
 def main():
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
-    winning_score =  50
+    winning_score =  1
     SHEET.worksheet('players').batch_clear(["A2:N5"])
     f = open("welcome.txt", "r")
     print("\033c")

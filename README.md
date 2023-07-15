@@ -15,6 +15,7 @@ Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up 
   - [User Stories](#user-stories)
   - [Strategy](#strategy)
     - [User](#user)
+      - [Leader board (top n)](#leader-board-top-n)
     - [Administrator](#administrator)
       - [Welcome Message](#welcome-message)
       - [Maximum Number of Players](#maximum-number-of-players-max_num_players)
@@ -22,7 +23,7 @@ Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up 
       - [Loading animation](#loading-animation)
       - [Winning Score](#winning-score)
 - [Structure](#structure)
-  - [Leader board (top n)](#leader-board-top-n)
+- [Future Improvements](#future-improvements)
 
 ## Rules of the game
 
@@ -72,6 +73,12 @@ All stories are based on accessibility, either for the user and the way to inter
 All game stages have explicit instructions, and each time an input is required, the game will clearly state what are the options and will react to them, as shown below:
 
 ![Rules and UX example](./assets/images/rules_ux.png)
+
+##### Leader Board (top n)
+
+At the end of each game, the leader board is shown with the top n scores in the recorded history of the game.
+
+![Leader Board]()
 
 #### Administrator
 
@@ -160,4 +167,7 @@ The programmer can change this value according to his/her needs.
 
 ## Structure
 
-### Leader board (top n)
+## Future Improvements
+
+- Make the game feasible to have, instead of a maximum score, a maximum of correctly answered questions.
+- Make the game feasible to replicate a graphical board game.
