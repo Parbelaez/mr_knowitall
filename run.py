@@ -16,6 +16,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('mr_knowitall')
 
+
 def create_players():
     """
     Create the players and insert them in the sheet.
@@ -43,24 +44,25 @@ def create_players():
                         player_name = input(f'\nPlease, enter the name of player {player_n+1}: ')
                     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                     player = {
-                        "name" : player_name.strip(),
-                        "creation_timestamp" : timestamp
+                        "name": player_name.strip(),
+                        "creation_timestamp": timestamp
                     }
                     players.append(player)
-                    data = [player_name,timestamp,0,0,0,0,0,0,0,0,0,0,0,0]
+                    data = [player_name, timestamp, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                     SHEET.worksheet('players').append_row(data)
                 valid_data = True
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
     return players
 
+
 def throw_dice():
     """
     Create a pseudo-random number between 1 and 6
     to emulate the rolling of dices.
     """
-    #Create the art of the throwing of the dices process
-    #This animation is a modification of https://stackoverflow.com/questions/7039114/waiting-animation-in-command-prompt-python
+    # Create the art of the throwing of the dices process
+    # This animation is a modification of https://stackoverflow.com/questions/7039114/waiting-animation-in-command-prompt-python
 
     loading = [
         "[        ]",
@@ -102,12 +104,13 @@ def throw_dice():
         i += 1
 
     # trunk-ignore(bandit/B311)
-    dice_1 = random.randint(1,6)
+    dice_1 = random.randint(1, 6)
     # trunk-ignore(bandit/B311)
-    dice_2 = random.randint(1,6)
+    dice_2 = random.randint(1, 6)
     return [dice_1, dice_2]
 
-def get_question(dices,category):
+
+def get_question(dices, category):
     """
     Use the dice 1 result to select the category.
     On the sheet, the correct result is always at the first column,
@@ -116,24 +119,25 @@ def get_question(dices,category):
     category_sheet = SHEET.worksheet(category)
     nbr_of_rows = len(category_sheet.get_all_values())
     # trunk-ignore(bandit/B311)
-    question = category_sheet.row_values(random.randint(2,nbr_of_rows - 1))
-    #Creates a list of unordered numbers from a 1 to 4 range
-    one_to_four = random.sample([1,2,3,4],4)
+    question = category_sheet.row_values(random.randint(2, nbr_of_rows - 1))
+    # Creates a list of unordered numbers from a 1 to 4 range
+    one_to_four = random.sample([1, 2, 3, 4], 4)
     options = {
-        'option_' + str(one_to_four[0]) : 'A',
-        'option_' + str(one_to_four[1]) : 'B',
-        'option_' + str(one_to_four[2]) : 'C',
-        'option_' + str(one_to_four[3]) : 'D'
+        'option_' + str(one_to_four[0]): 'A',
+        'option_' + str(one_to_four[1]): 'B',
+        'option_' + str(one_to_four[2]): 'C',
+        'option_' + str(one_to_four[3]): 'D'
     }
-    #Dictionary needes to translate the option into a correct answer
+    # Dictionary needes to translate the option into a correct answer
     print(f'{question[0]}\n\n',
           'Your answer options are:\n\n',
           f'A: {question[one_to_four[0]]}\n',
           f'B: {question[one_to_four[1]]}\n',
           f'C: {question[one_to_four[2]]}\n',
           f'D: {question[one_to_four[3]]}\n',)
-    #Returns the correct answer
+    # Returns the correct answer
     return (options['option_1'])
+
 
 def get_answer(correct_answer):
     answer = ''
@@ -142,12 +146,12 @@ def get_answer(correct_answer):
         try:
             answer = input('Please, choose your answer (a, b, c, or d): ')
             if (options.count(answer.lower())):
-               if (answer.upper() == correct_answer):
-                   print('Correct!\n')
-                   return(True)
-               else:
-                   print('Sorry! Your answer was wrong.')
-                   return(False)
+                if (answer.upper() == correct_answer):
+                    print('Correct!\n')
+                    return (True)
+                else:
+                    print('Sorry! Your answer was wrong.')
+                    return (False)
             else:
                 raise ValueError(
                     f'Please, enter an option from the list (a, b, c, d). You privided {answer}'
@@ -155,13 +159,14 @@ def get_answer(correct_answer):
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
 
-def calculate_score(category,correct,player,dice):
+
+def calculate_score(category, correct, player, dice):
     """
     Take the category and looks for the previous score values for correct and incorrect.
     Sum the dice 2 result to the previous score.
     Calculate the new total and returns the value.
     """
-    if(correct):
+    if (correct):
         match category:
             case 'General Knowledge':
                 column = 3
@@ -176,7 +181,7 @@ def calculate_score(category,correct,player,dice):
             case 'Math':
                 column = 13
         previous_result = SHEET.worksheet('players').cell(player + 2, column).value
-        if(previous_result is None):
+        if (previous_result is None):
             SHEET.worksheet('players').update_cell(player + 2, column, dice)
         else:
             SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice)
@@ -184,7 +189,7 @@ def calculate_score(category,correct,player,dice):
         new_total_correct = 0
         for i in range(3, len(scores_row), 2):
             new_total_correct += int(scores_row[i-1])
-        return(new_total_correct)
+        return (new_total_correct)
 
     else:
         match category:
@@ -202,11 +207,12 @@ def calculate_score(category,correct,player,dice):
                 column = 14
         # results_cell = column + str(player+2)
         previous_result = SHEET.worksheet('players').cell(player + 2, column).value
-        if(previous_result is None):
+        if (previous_result is None):
             SHEET.worksheet('players').update_cell(player + 2, column, dice)
         else:
             SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice)
-    return(None)
+    return (None)
+
 
 def update_leaders_board(new_score, player):
     SHEET.worksheet('players_log').append_row([player, strftime("%Y-%m-%d %H:%M:%S", gmtime()), new_score])
@@ -219,6 +225,7 @@ def update_leaders_board(new_score, player):
     for i in range(5 if len(all_records) > 5 else len(all_records)):
         print(f'{all_records[i][0]}\t\t{all_records[i][1]}\t\t{all_records[i][2]}')
 
+
 def new_game():
     """
     Ask the player(s) if they would like to play again.
@@ -230,7 +237,7 @@ def new_game():
     start = time()
     while time() - start < wait:
         play_again = input("\nDo you want to play one more time (y/n)?")
-        if(play_again == "y"):
+        if (play_again == "y"):
             SHEET.worksheet('players').batch_clear(["A2:N5"])
             main()
         else:
@@ -243,14 +250,15 @@ def new_game():
     SHEET.worksheet('players').batch_clear(["A2:N5"])
     exit()
 
+
 def main():
     """
     Run each othe functions following the flow chart.
     Invoked by the run.py, and later everytime that a player choses to play again.
     """
-    category = ['General Knowledge','Art','History','Geography','Sports','Math']
-    winning_score =  50
-    #Clears any old data in the players' sheet.
+    category = ['General Knowledge', 'Art', 'History', 'Geography', 'Sports', 'Math']
+    winning_score = 50
+    # Clears any old data in the players' sheet.
     SHEET.worksheet('players').batch_clear(["A2:N5"])
     f = open("welcome.txt", "r")
     print("\033c")
@@ -262,19 +270,20 @@ def main():
         for player_num in range(len(players)):
             print(f"It is {players[player_num]['name']}'s turn.\n")
             y_key = ""
-            while  y_key.lower() != "y":
+            while y_key.lower() != "y":
                 y_key = input('Press "y" to throw the dice: ')
             dice = throw_dice()
             print("\033c")
             print(f'Die 1: {dice[0]} , Die 2: {dice[1]}')
             print(f'Category: {category[dice[0]-1]} and you will be able to get {dice[1]} points.\n')
-            correct_answer = get_question(dice,category[dice[0]-1])
+            correct_answer = get_question(dice, category[dice[0]-1])
             correct = get_answer(correct_answer)
-            new_score = calculate_score(category[dice[0]-1],correct,player_num, dice[1])
+            new_score = calculate_score(category[dice[0]-1], correct, player_num, dice[1])
             print(f'\n{players[player_num]["name"]}, your score is {new_score if new_score is not None else 0}\n')
             if (new_score if new_score is not None else 0) >= winning_score:
                 print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
                 update_leaders_board(new_score, players[player_num]["name"])
                 new_game()
+
 
 main()
