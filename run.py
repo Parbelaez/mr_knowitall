@@ -16,12 +16,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('mr_knowitall')
 
-class Player:
-    def __init__(self, name):
-        self.name = name
-        self.creation_date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-
-
 def create_players():
     """
     Create the players and insert them in the sheet.
@@ -255,7 +249,7 @@ def main():
     Invoked by the run.py, and later everytime that a player choses to play again.
     """
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
-    winning_score =  1
+    winning_score =  50
     #Clears any old data in the players' sheet.
     SHEET.worksheet('players').batch_clear(["A2:N5"])
     f = open("welcome.txt", "r")
