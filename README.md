@@ -22,6 +22,8 @@ Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up 
       - [Increase, decrease, or modify the questions](#increase-decrease-or-modify-the-questions)
       - [Loading animation](#loading-animation)
       - [Winning Score](#winning-score)
+- [Exception/Error handling](#exceptionerror-handling)
+- [Testing](#testing)
 - [Future Improvements](#future-improvements)
 - [Deployment, forking, and cloning](#deployment-forking-and-cloning)
   - [Deployment to Heroku](#deployment-to-heroku)
@@ -169,6 +171,16 @@ The winning_score variable at the beginning of the main function will set the nu
 The programmer can change this value according to his/her needs.
 
 **NOTE:** when changing the winning_score variable, remember to update the [welcome.txt](./welcome.txt) file.
+
+## Exception/Error handling
+
+Error catching was needed in the number of players selection. In this part of the program, the user can enter a number outside the range or even a letter. Therefore, a try/except was included in the `create_players()` function, to avoid crashings due to str to int conversions, and incorrect numbers that top the maximum numbers of players.
+
+For the rest of the code, there was no need of this usage, as the inputs could be any alpha-numeric entries, and the "y/n" questions are controlled with the lower() method and check-up of the correct letter.
+
+## Testing
+
+Please, refer to the [Testing.md](./testing.md) file.
 
 ## Future Improvements
 
