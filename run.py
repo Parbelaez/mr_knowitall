@@ -145,7 +145,7 @@ def get_answer(correct_answer):
     while (not options.count(answer)):
         try:
             answer = input('Please, choose your answer (a, b, c, or d): ')
-            if (options.count(answer)):
+            if (options.count(answer.lower())):
                if (answer.upper() == correct_answer):
                    print('Correct!\n')
                    return(True)
@@ -158,8 +158,6 @@ def get_answer(correct_answer):
                     )
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
-
-# TODO: refactor... categories in a list and only 1 update routine
 
 def calculate_score(category,correct,player,dice):
     """
