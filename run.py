@@ -250,8 +250,13 @@ def new_game():
     exit()
 
 def main():
+    """
+    Run each othe functions following the flow chart.
+    Invoked by the run.py, and later everytime that a player choses to play again.
+    """
     category = ['General Knowledge','Art','History','Geography','Sports','Math']
     winning_score =  1
+    #Clears any old data in the players' sheet.
     SHEET.worksheet('players').batch_clear(["A2:N5"])
     f = open("welcome.txt", "r")
     print("\033c")
