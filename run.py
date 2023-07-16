@@ -45,9 +45,11 @@ def create_players():
             else:
                 for player_n in range(0, int(num_of_players)):
                     player_name = input(f'\nPlease, enter the name of player {player_n+1}: ')
+                    while player_name.strip() == "":
+                        player_name = input(f'\nPlease, enter the name of player {player_n+1}: ')
                     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                     player = {
-                        "name" : player_name,
+                        "name" : player_name.strip(),
                         "creation_timestamp" : timestamp
                     }
                     players.append(player)
