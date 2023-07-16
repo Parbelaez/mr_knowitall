@@ -30,7 +30,7 @@ def create_players():
     valid_data = False
 
     while valid_data is False:
-        num_of_players = input("Please,enter the number of players (1 to 4): ")
+        num_of_players = input("Please,enter the number of players (1 to 4): \n")
         try:
             int(num_of_players)
             if int(num_of_players) < 1 or int(num_of_players) > max_num_players:
@@ -39,9 +39,9 @@ def create_players():
                     )
             else:
                 for player_n in range(0, int(num_of_players)):
-                    player_name = input(f'\nPlease, enter the name of player {player_n+1}: ')
+                    player_name = input(f'\nPlease, enter the name of player {player_n+1}: \n')
                     while player_name.strip() == "":
-                        player_name = input(f'\nPlease, enter the name of player {player_n+1}: ')
+                        player_name = input(f'\nPlease, enter the name of player {player_n+1}: \n')
                     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                     player = {
                         "name": player_name.strip(),
@@ -144,7 +144,7 @@ def get_answer(correct_answer):
     options = ['a', 'b', 'c', 'd']
     while (not options.count(answer)):
         try:
-            answer = input('Please, choose your answer (a, b, c, or d): ')
+            answer = input('Please, choose your answer (a, b, c, or d): \n')
             if (options.count(answer.lower())):
                 if (answer.upper() == correct_answer):
                     print('Correct!\n')
@@ -236,7 +236,7 @@ def new_game():
     wait = 60
     start = time()
     while time() - start < wait:
-        play_again = input("\nDo you want to play one more time (y/n)?")
+        play_again = input("\nDo you want to play one more time (y/n)?\n")
         if (play_again == "y"):
             SHEET.worksheet('players').batch_clear(["A2:N5"])
             main()
@@ -271,7 +271,7 @@ def main():
             print(f"It is {players[player_num]['name']}'s turn.\n")
             y_key = ""
             while y_key.lower() != "y":
-                y_key = input('Press "y" to throw the dice: ')
+                y_key = input('Press "y" to throw the dice: \n')
             dice = throw_dice()
             print("\033c")
             print(f'Die 1: {dice[0]} , Die 2: {dice[1]}')
