@@ -27,6 +27,9 @@ Mr. Know-it-all is a trivia game developed in Python in which the player(s) (up 
   - [Deployment to Heroku](#deployment-to-heroku)
   - [Forking the project](#forking-the-project)
   - [Cloning the project](#cloning-the-project)
+- [Credits](#credits)
+  - [Code snippets and inspiration](#code-snippets-and-inspiration)
+  - [Acknoledgements](#acknoledgements)
 
 ## Rules of the game
 
@@ -219,3 +222,13 @@ Follow these steps to clone this project:
 4. Open Git terminal.
 5. If needed, change the current workspace to the location where you want the repository to be cloned
 6. Type git clone and paste in the URL copied in step 3 and press Enter.
+
+## Credits
+
+### Code snippets and inspiration
+
+- The dice animation is a variation of the example shown in this Stackoverflow [post](https://stackoverflow.com/questions/7039114/waiting-animation-in-command-prompt-python)
+
+### Acknoledgements
+
+Thanks to my mentor, Jubril Akolade for his continous support and encouragement.

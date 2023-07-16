@@ -16,6 +16,12 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('mr_knowitall')
 
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.creation_date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+
+
 def create_players():
     """
     Create the players and insert them in the sheet.
