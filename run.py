@@ -227,7 +227,11 @@ def calculate_score(category, correct, player, dice):
         else:
             SHEET.worksheet('players').update_cell(player + 2, column,
                                                    int(previous_result) + dice)
-    return (None)
+        scores_row = SHEET.worksheet('players').row_values(player+2)
+        new_total_correct = 0
+        for i in range(3, len(scores_row), 2):
+            new_total_correct += int(scores_row[i-1])
+        return (new_total_correct)
 
 
 def update_leaders_board(new_score, player):
