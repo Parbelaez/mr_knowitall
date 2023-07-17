@@ -66,7 +66,7 @@ The design of the game was based on CLI, therefore, one of the goals was to be a
   - Have clear indications on how to play.
   - Have an easy-to-understand UI.
   - Have the expected inputs from my side which are also non-case sensitive.
-  - Display a leaders board, so I can know what the top 5 scores are.
+  - Have a leaders board, so I can know what the top 5 scores are.
 
 - As a Game Administrator (programmer), I want to:
   - Be able to easily modify the question and their quantity.
