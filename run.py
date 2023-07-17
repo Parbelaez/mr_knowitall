@@ -39,9 +39,9 @@ def create_players():
                 or int(num_of_players) > max_num_players
             ):
                 raise ValueError(
-                    f'\nPlease, enter a number between \
-                        1 and {max_num_players}. You provided {num_of_players}'
-                    )
+                    f'\nPlease, enter a number between '
+                    f'1 and {max_num_players}. You provided {num_of_players}'
+                )
             else:
                 for player_n in range(0, int(num_of_players)):
                     player_name = input(

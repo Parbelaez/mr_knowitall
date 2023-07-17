@@ -42,45 +42,8 @@ Additional testing was taken by friends and family on a variety of devices and s
 
 Feature | Expected Outcome | Testing Performed | Result | Pass/Fail |
 | --- | --- | --- | --- | --- |
-| `Navbar` |
-| Site logo | Redirects to the home page | Click logo |  Redirects to home page | Pass |
-| Site Name | Redirects to home page | Click site name | Redirects to home page | Pass |
-| Home Link | Redirects to home page | Click home link | Redirects to home page | Pass |
-| Login Link (user not logged in) | Redirect to Login page | Click log in link | Redirected to log in page | Pass |
-| Sign up Link (user not logged in)  | Redirect to Sign up page | Click sign up link | Redirected to sign up page | Pass |
-| View all posts link | Redirects the user to the all threads page | Click view all posts link | Redirected to all posts page | Pass |
-| Admin View | Redirects to the admin view page | Click admin view link | Redirected to admin view page | Pass |
-| Logout link (user logged in) | User will be logged out | Click log out link| Redirected to home page - login link available | Pass |
-| `Home Page` |
-| View threads button | Redirects to the threads page | Click button | Redirected to the thread | Pass |
-| Start a new thread button | Modal popup to create new thread | Click button | New thread modal popped up | Pass |
-| `Login Page` |
-| Form - link to sign up page | Redirects user to sign in page | Click link | Redirected to sign up page | Pass |
-| Form - Submission with no information | User prompted to fill in information | clicked submit button with no fields filled out | Form highlighted first empty field | Pass |
-| `Signup Page` |
-| Form - Submission with no information | User prompted to fill in information | clicked submit button with no fields filled out | Form highlighted first empty field | Pass |
-| `New Post Page` |
-| --- | --- | --- | --- | --- |
-| `New Thread Page` |
-| --- | --- | --- | --- | --- |
-| `Threads Page` |
-| --- | --- | --- | --- | --- |
-| `Admin Posts Page` |
-| --- | --- | --- | --- | --- |
-| `Privacy Policy Page` |
-| Link to Terms & Conditions Page | Redirects user to the Terms & Conditions page | Click link | Redirected to the terms & conditions page | Pass |
-| Get Safe Online link | Redirects the user to the get safe online website in a new browser tab | Click link | site opens, but in same browser tab | Fail |
-| Link to Rocket Lawyer site in Attribution section | User is taken to the Rocket Lawyer site in a new browser tab | Click link | Rocket Lawyer site opens, but in same tab | Fail |
-| `Terms and Conditions Page` |
-| Link to Rocket Lawyer site in Attribution section | User is taken to the Rocket Lawyer site in a new browser tab | Click link | 404 page opens | Fail |
-| `404 Page` |
-| (User Logged in) Home Button | User will be redirected to the home page | Click home button | Redirected to the home page | Pass |
-| (Guest User) Login Button | User redirected to the login page | Click login button | Redirected to the login page | Pass |
-| (Guest User) Sign Up Button | User redirected to the sign up page | Click sign up button | Redirected to sign up page | Pass |
-| `Footer` |
-| Footer - Join now button | Redirects user to the sign up page | Click button | Redirected to sign up page | Pass |
-| Footer - Social media links | Opens new tab to the social media site | Clicked each icon | New tabs opened for each site | Pass |
-| Footer - Privacy Policy link | Redirects to the privacy policy page | Clicked link | Redirected to privacy policy page | Pass |
-| footer - Terms and conditions link | Redirects to the terms and conditions page | Clicked link | Redirected to terms and conditions page | Pass |
+| Try / Except for the number of players | - Any number lower than one should be reject.<br>- Any number greater than the maximum number of users should be rejected.<br>- Any alpha character should be rejected. | Input all the unexpected characters | All were rejected and there was a message displaying the problem, and an invitation to try again.<br>![Try Except](./assets/images/try_except.png) | Pass |
+| Blanks validation and leading-ending spaces for the players names. | - Any name full of blanks should be rejected.<br>- Any leading blank spaces in the name should be deleted.<br>- Any ending blank spaces in the name should be deleted. | Input all the possibilities | All blanks were rejected inviting to enter the name once again, and blank spaces at the beginning or end of the name were deleted.<br>![blanks validation](./assets/images/blanks.png) | Pass |
+| Blanks validation and leading-ending spaces for the players names. | - Any name full of blanks should be rejected.<br>- Any leading blank spaces in the name should be deleted.<br>- Any ending blank spaces in the name should be deleted. | Input all the possibilities | All blanks were rejected inviting to enter the name once again, and blank spaces at the beginning or end of the name were deleted.<br>![blanks validation](./assets/images/blanks.png) | Pass |
 
 Back to [README.md](README.md)
