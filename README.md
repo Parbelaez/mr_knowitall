@@ -184,7 +184,7 @@ Using the official pep8 linter for Code Institute, the run.py showed no errors:
 
 ![pep8 passed](./assets/images/pep8_ok.png)
 
-Please, refer to the [Testing.md](./testing.md) file.
+Please, refer to the [TESTING.md](./TESTING.md file.
 
 ## Future Improvements
 
