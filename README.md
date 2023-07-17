@@ -205,16 +205,20 @@ Please, refer to the [Testing.md](./testing.md) file.
 
 ### Deployment to Heroku
 
+**IMPORTANT:** Before starting with the deployment process, please create a `requirements.txt`` file.
+In the terminal, run the following command:`pip3 freeze > requirements.txt`, copy the result and paste it into the just created`requirements.txt` file.
+
 1. Log in to [Heroku](https://www.heroku.com/)
 2. On top right corner of the screen, locate the `New` button and the choose `Create new app`.
 3. Give a unique name to the app, choose the appropriate region and click `Create`.
 4. Access your app dashboard and click on `Deploy`.
-5. Under `Deployment method`, choose GitHub and coonect to the respective repository.
-6. Enable automatic deployment and click `Deploy`.
+5. Under `Deployment method`, choose GitHub and connect to the respective repository.
+6. Enable automatic deployment (if you want that any code update is also available automatically in your Heroku deployment) and click `Deploy`.
 7. Set up environment on Heroku by going to `Settings` tab.
 8. On `Config Vars` section, click `Reveal Config Vars`
-9. Based on `env.py` file, add all the environment variables to the `Config Vars` section.
-10. On top right coner of the app's dashboard, locate the button `Open app`. You will be able to see you deployed app with link to live site.
+9. Add the creds.json content to them.
+10. Add the PORT with 8000 value as well.
+11. On the top right coner of the app's dashboard, locate the button `Open app`. You will be able to see you deployed app with a link to live site.
 
 ### Forking the project
 
@@ -222,7 +226,7 @@ Follow these steps to fork this project:
 
 1. Log in to GitHub and navigate to this project's respository: [mr_knowitall](https://github.com/Parbelaez/mr_knowitall).
 2. Just above the navigation menu of the repository (above the Settings button), locate the Fork button.
-3. The original copy of the repository is now copied on your GitHub account which allows you to view and/or work on the codes without affecting the original work.
+3. The original copy of the repository is now copied to your GitHub account which allows you to view and/or work on the code without affecting the original work.
 
 ### Cloning the project
 
@@ -231,8 +235,8 @@ Follow these steps to clone this project:
 1. Log in to GitHub and navigate to this project's respository: [mr_knowitall](https://github.com/Parbelaez/mr_knowitall).
 2. Under the navigation menu of the repository, locate and click the button "Code" which shows different options to clone or download.
 3. To clone this repository using HTTPS, copy the link under "Clone with HTTPS".
-4. Open Git terminal.
-5. If needed, change the current workspace to the location where you want the repository to be cloned
+4. Open the Git terminal.
+5. If needed, change the current workspace to the location where you want the repository to be cloned.
 6. Type git clone and paste in the URL copied in step 3 and press Enter.
 
 ## Credits
