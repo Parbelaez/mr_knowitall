@@ -180,6 +180,10 @@ For the rest of the code, there was no need of this usage, as the inputs could b
 
 ## Testing
 
+Using the official pep8 linter for Code Institute, the run.py showed no errors:
+
+![pep8 passed](./assets/images/pep8_ok.png)
+
 Please, refer to the [Testing.md](./testing.md) file.
 
 ## Future Improvements
@@ -205,8 +209,8 @@ Please, refer to the [Testing.md](./testing.md) file.
 
 ### Deployment to Heroku
 
-**IMPORTANT:** Before starting with the deployment process, please create a `requirements.txt`` file.
-In the terminal, run the following command:`pip3 freeze > requirements.txt`, copy the result and paste it into the just created`requirements.txt` file.
+**IMPORTANT:** Before starting with the deployment process, please create a `requirements.txt` file.
+In the terminal, run the following command:`pip3 freeze > requirements.txt`, copy the result and paste it into the just created `requirements.txt` file.
 
 1. Log in to [Heroku](https://www.heroku.com/)
 2. On top right corner of the screen, locate the `New` button and the choose `Create new app`.
