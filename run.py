@@ -30,25 +30,34 @@ def create_players():
     valid_data = False
 
     while valid_data is False:
-        num_of_players = input("Please,enter the number of players (1 to 4): \n")
+        num_of_players = input("Please, enter"
+                               " the number of players (1 to 4): \n")
         try:
             int(num_of_players)
-            if int(num_of_players) < 1 or int(num_of_players) > max_num_players:
+            if (
+                int(num_of_players) < 1
+                or int(num_of_players) > max_num_players
+            ):
                 raise ValueError(
-                    f'\nPlease, enter a number between 1 and {max_num_players}. You privided {num_of_players}'
+                    f'\nPlease, enter a number between \
+                        1 and {max_num_players}. You provided {num_of_players}'
                     )
             else:
                 for player_n in range(0, int(num_of_players)):
-                    player_name = input(f'\nPlease, enter the name of player {player_n+1}: \n')
+                    player_name = input(
+                        f'\nPlease, enter the name of player {player_n+1}: \n'
+                        )
                     while player_name.strip() == "":
-                        player_name = input(f'\nPlease, enter the name of player {player_n+1}: \n')
+                        player_name = input('\nPlease, enter the name'
+                                            f' of player {player_n+1}: \n')
                     timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                     player = {
                         "name": player_name.strip(),
                         "creation_timestamp": timestamp
                     }
                     players.append(player)
-                    data = [player_name, timestamp, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    data = [player_name, timestamp, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0, 0]
                     SHEET.worksheet('players').append_row(data)
                 valid_data = True
         except ValueError as e:
@@ -62,7 +71,8 @@ def throw_dice():
     to emulate the rolling of dices.
     """
     # Create the art of the throwing of the dices process
-    # This animation is a modification of https://stackoverflow.com/questions/7039114/waiting-animation-in-command-prompt-python
+    # This animation is a modification of
+    # https://stackoverflow.com/questions/7039114/waiting-animation-in-command-prompt-python
 
     loading = [
         "[        ]",
@@ -154,15 +164,17 @@ def get_answer(correct_answer):
                     return (False)
             else:
                 raise ValueError(
-                    f'Please, enter an option from the list (a, b, c, d). You privided {answer}'
-                    )
+                    f'Please, enter an option from the list (a, b, c, d).'
+                    f'You provided {answer}'
+                )
         except ValueError as e:
             print(f'Invalid data: {e}, please try again.\n')
 
 
 def calculate_score(category, correct, player, dice):
     """
-    Take the category and looks for the previous score values for correct and incorrect.
+    Take the category and looks for the previous score values for the
+    correct and incorrect answers.
     Sum the dice 2 result to the previous score.
     Calculate the new total and returns the value.
     """
@@ -180,11 +192,13 @@ def calculate_score(category, correct, player, dice):
                 column = 11
             case 'Math':
                 column = 13
-        previous_result = SHEET.worksheet('players').cell(player + 2, column).value
+        previous_result = SHEET.worksheet('players').cell(player + 2,
+                                                          column).value
         if (previous_result is None):
             SHEET.worksheet('players').update_cell(player + 2, column, dice)
         else:
-            SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice)
+            SHEET.worksheet('players').update_cell(player + 2, column,
+                                                   int(previous_result) + dice)
         scores_row = SHEET.worksheet('players').row_values(player+2)
         new_total_correct = 0
         for i in range(3, len(scores_row), 2):
@@ -206,24 +220,30 @@ def calculate_score(category, correct, player, dice):
             case 'Math':
                 column = 14
         # results_cell = column + str(player+2)
-        previous_result = SHEET.worksheet('players').cell(player + 2, column).value
+        previous_result = SHEET.worksheet('players').cell(player + 2,
+                                                          column).value
         if (previous_result is None):
             SHEET.worksheet('players').update_cell(player + 2, column, dice)
         else:
-            SHEET.worksheet('players').update_cell(player + 2, column, int(previous_result) + dice)
+            SHEET.worksheet('players').update_cell(player + 2, column,
+                                                   int(previous_result) + dice)
     return (None)
 
 
 def update_leaders_board(new_score, player):
-    SHEET.worksheet('players_log').append_row([player, strftime("%Y-%m-%d %H:%M:%S", gmtime()), new_score])
+    SHEET.worksheet('players_log').append_row([player,
+                                               strftime("%Y-%m-%d %H:%M:%S",
+                                                        gmtime()), new_score])
     all_records = SHEET.worksheet('players_log').get_all_values()
     all_records.pop(0)
     # all_records = sorted(all_records, key=itemgetter(2), reverse=True)
-    all_records = sorted(all_records, key=lambda x: int(itemgetter(2)(x)), reverse=True)
+    all_records = sorted(all_records, key=lambda x: int(itemgetter(2)(x)),
+                         reverse=True)
     print("LEADER BOARD\n")
     print('Name\t\t\t', 'Date\t\t\t', 'Score')
     for i in range(5 if len(all_records) > 5 else len(all_records)):
-        print(f'{all_records[i][0]}\t\t{all_records[i][1]}\t\t{all_records[i][2]}')
+        print(f'{all_records[i][0]}\t\t{all_records[i][1]}\t\t\
+              {all_records[i][2]}')
 
 
 def new_game():
@@ -254,9 +274,10 @@ def new_game():
 def main():
     """
     Run each othe functions following the flow chart.
-    Invoked by the run.py, and later everytime that a player choses to play again.
+    Invoked by the run.py and everytime that a player choses to play again.
     """
-    category = ['General Knowledge', 'Art', 'History', 'Geography', 'Sports', 'Math']
+    category = ['General Knowledge', 'Art', 'History',
+                'Geography', 'Sports', 'Math']
     winning_score = 50
     # Clears any old data in the players' sheet.
     SHEET.worksheet('players').batch_clear(["A2:N5"])
@@ -275,13 +296,17 @@ def main():
             dice = throw_dice()
             print("\033c")
             print(f'Die 1: {dice[0]} , Die 2: {dice[1]}')
-            print(f'Category: {category[dice[0]-1]} and you will be able to get {dice[1]} points.\n')
+            print(f'Category: {category[dice[0]-1]}'
+                  f' and you will be able to get {dice[1]} points.\n')
             correct_answer = get_question(dice, category[dice[0]-1])
             correct = get_answer(correct_answer)
-            new_score = calculate_score(category[dice[0]-1], correct, player_num, dice[1])
-            print(f'\n{players[player_num]["name"]}, your score is {new_score if new_score is not None else 0}\n')
+            new_score = calculate_score(category[dice[0]-1],
+                                        correct, player_num, dice[1])
+            print(f'\n{players[player_num]["name"]},your score is '
+                  f'{new_score if new_score is not None else 0}\n')
             if (new_score if new_score is not None else 0) >= winning_score:
-                print(f'{players[player_num]["name"]}, you won! CONGRATULATIONS!\n')
+                print(f'{players[player_num]["name"]}, \
+                      you won! CONGRATULATIONS!\n')
                 update_leaders_board(new_score, players[player_num]["name"])
                 new_game()
 
